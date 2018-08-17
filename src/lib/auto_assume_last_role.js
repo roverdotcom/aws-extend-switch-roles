@@ -9,11 +9,23 @@ class AutoAssumeLastRole {
       for (let form of list.querySelectorAll('form')) {
         const val = `${form.account.value}_${form.roleName.value}`;
         if (targetIdRole === val) {
-          form.querySelector('input[type="submit"]').click();
+          this.submitWithCSRF(form);
           break;
-        }        
+        }
       }
-    }, 0);    
+    }, 0);
+  }
+
+  async submitWithCSRF(form) {
+    await new Promise(resolve => {
+      const interval = setInterval(() => {
+          if (form.csrf.value !== '') {
+              clearInterval(interval);
+              resolve();
+          }
+      }, 50 /* ms */);
+    });
+    form.querySelector('input[type="submit"]').click();
   }
 
   save(profile) {

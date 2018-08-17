@@ -25,7 +25,7 @@ function extendIAMFormList() {
       loadProfiles(new Profile(data.profiles, showOnlyMatchingRoles), list, csrf, hidesHistory, hidesAccountId);
       attachColorLine(data.profiles);
     }
-    // console.log("Last role from '"+vlastRoleKey+"' was '"+lastRole+"'");
+    // console.log("Last role from '"+lastRoleKey+"' was '"+data[lastRoleKey]+"'");
     autoAssumeLastRole.execute(data[lastRoleKey], list);
   });
 }
@@ -64,7 +64,7 @@ function replaceRedirectURI(form, profile) {
       }
     }
     form.redirect_uri.value = encodeURIComponent(redirectUri);
-  }  
+  }
 }
 
 function hookBeforeSwitch(form, profile) {
